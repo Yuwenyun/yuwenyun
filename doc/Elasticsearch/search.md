@@ -1,4 +1,5 @@
-# fast check for matching doc numbers, set size to 0
+fast check for matching doc numbers, set size to 0
+```
 curl -XGET 'localhost:9200/bank/_search?q=age:25&size=0&pretty'
 {
   "took" : 3,
@@ -15,13 +16,13 @@ curl -XGET 'localhost:9200/bank/_search?q=age:25&size=0&pretty'
     "hits" : [ ]          # there will be no result
   }
 }
-
-###
+```
 by default, field values are indexed to make them searchable, they are not stored, 
 only the whole doc is as value of _source field.
 if we want to retrieve a single field or a few fields:
-1. add source filter("_source":["age", "name"])
-2. store the field
+- add source filter("_source":["age", "name"])
+- store the field
+```
 PUT my_index
 {
   "mappings": {
@@ -45,14 +46,15 @@ GET my_index/_search
 {
   "stored_fields": [ "name" ] 
 }
+```
 
 doc_values are on-disk data structure, built at index time for sorting, aggregations and access to field values
 in scripts. stored fields and doc_values are different for:
-1. stored fields are designed for optimal storage whereas doc values are designed the access field values quickly
-2. During the execution of query many of doc values fields are accessed for candidate hits, so the access must be fast
+- stored fields are designed for optimal storage whereas doc values are designed the access field values quickly
+- During the execution of query many of doc values fields are accessed for candidate hits, so the access must be fast
 stored fields are only used for return field values for the top matching documents and won't involve query process
 
-# basic params
+```
 curl -XGET 'localhost:9200/bank/_search?pretty' -d '
 {
   "query":{
@@ -79,16 +81,17 @@ curl -XGET 'localhost:9200/bank/_search?pretty' -d '
   "explain":true,
   "min_score":0.5,   # exclude docs that have _score less than this value
 }'
-
-###
+```
 search_type:
 1. query_then_fetch: 
-  1> query forwarded to all shards, and coordinating node resort the shard level results into globally sorted results
-  2> get doc from relevant shards
+- query forwarded to all shards, and coordinating node resort the shard level results into globally sorted results
+- get doc from relevant shards
+
 2. dfs_query_then_fetch:
   results of different shards will be involved into the relevance calculation with global frequency.
-  
-# pre-render search requests and fill existing templates with parameters
+
+  pre-render search requests and fill existing templates with parameters
+```
 curl -XGET 'localhost:9200/_search/template?pretty' -d '
 {
   "source":｛
@@ -101,3 +104,26 @@ curl -XGET 'localhost:9200/_search/template?pretty' -d '
     "my_size":10
   }
 }'
+```
+other apis
+```
+# count docs
+curl -XGET 'localhost:9200/bank/_count?pretty' -d '
+{
+  "query":{
+    "match":{
+      "firstname":"Owen"
+    }
+  }
+}'
+# validate query
+curl -XGET 'localhost:9200/bank/_validate/query?pretty' -d '
+{
+  "query":{
+    "match":{
+      "firstname":"Virginia"
+    }
+  }
+}'
+
+```

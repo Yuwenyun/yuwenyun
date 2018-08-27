@@ -1,21 +1,25 @@
-# index a doc
+index a doc
+```
 curl -XPUT 'localhost:9200/bank/account/1001' -d '
 {
   "name":"yuwenyun",
   "age":25,
   "balance":1000
 }'
-
-# get a doc
+```
+get a doc
+```
 curl -XGET 'localhost:9200/bank/account/1001'
-
-# bulk
+```
+bulk
+```
 cat data.json
 { "index" : { "_index" : "test", "_type" : "type1", "_id" : "1" } }
 { "field1" : "value1" }
 curl -s -XPOST 'localhost:9200/_bulk' --data-binary "@data.json"
-
-# copy doc to another index
+```
+copy doc to another index
+```
 curl -XPOST 'localhost:9200/_reindex' -d '
 {
   "source":{
@@ -28,8 +32,9 @@ curl -XPOST 'localhost:9200/_reindex' -d '
   },
   "conflicts":"proceed" # by default, conflict abort the _reindex, this tells es ignore conflict
 }'
-
-# reindex from remote
+```
+reindex from remote
+```
 curl -XPOST 'localhost:9200/_reindex' -d '
 {
   "source":{
@@ -53,4 +58,4 @@ curl -XPOST 'localhost:9200/_reindex' -d '
     "index":"newIndex"
   }
 }'
-  
+```
