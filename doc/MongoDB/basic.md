@@ -35,6 +35,10 @@ mongodb will use /data/db for data dir by default, and 27017 as port for connect
 use foobar
 # check current db
 db
+# show all the db
+show dbs
+# show all the collections of current db
+show collections
 
 # create new doc in collection
 > post={"title":"My Blog Post",
