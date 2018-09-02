@@ -29,6 +29,8 @@
 > note: condition usage $ is inside the field, {"age":{"$lt":20}} while
 setter usage $ is outside the file, {"$inc":{"age":1}}
 
+$not, $ne
+
 ```
 # query null and field that not exists
 > db.user.find({"age":null})
