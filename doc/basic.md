@@ -8,9 +8,10 @@
     <relativePath />
 </parent>
 ...
+<!-- this has to be added to make this project as a spring boot project -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
+    <artifactId>spring-boot-starter</artifactId>
 </dependency>
 
 -- add rest controller
