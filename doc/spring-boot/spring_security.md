@@ -36,3 +36,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 ```
+3. spring security = authentication + authorization
+
+authentication
+```
+public interface AuthenticationManager {
+  Authentication authenticate(Authentication authentication) throws AuthenticationException;
+}
+```
+- will return an Authentication object(with authenticated=true) if input authentication obj is valid
+- commonly used implementation of **AuthenticationManager** is  **ProviderManager**, this class delegates to a chain of **AuthenticationProvider**
+- a ProviderManager has an optional parent to consult if all the providers in the chain return null, if parent can't decide, it returns null
+- groups of protected resources may have bunches of AuthenticationManagers(which commonly are ProviderManager), they share the same parent that holds global resource
+
+authorization is basically implemented by **AccessDecisionManager**
+- commonly used 3 implementations of AccessDecisionManager delegate to a chain of **AccessDecisionVoter**.
+
+4. Spring Security in the web tier (for UIs and HTTP back ends) is based on **Servlet Filters**, it is a single physical Filter with a fixed name **springSecurityFilterChain** but delegates processing to a chain of internal filters
+
+
+
+
