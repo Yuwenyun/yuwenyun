@@ -43,13 +43,55 @@ SELECT table_id, name, space from INFORMATION_SCHEMA.INNODB_SYS_TABLES WHERE nam
 ```
 - inverted index start with **FTS_** and end with **INDEX_**
 
-4. a transaction is a set of separate actions that must all be completely processed, or none processed at all.
+4. heap table
+```
+# create heap table
+create table heap_table_demo engine=memory select * from employee;
+```
+- definition of heap table is in disk with extention **.frm**
+- data of heap table is in memory, will lost if mysql instance dies
+- heap table doesn't support columns of type blob and text
+- if restart mysql, primary key and index are still there, only data is lost
+- heap table is shared among different sessions
+- heap table won't support transaction and is table level lock
+
+5. a transaction is a set of separate actions that must all be completely processed, or none processed at all.
 - Atomicity guarantees that each transaction is treated as a single "unit", which either succeeds completely, or fails completely
 - Consistency ensures that a transaction can only bring the database from one valid state to another, maintaining database invariants: any data written to the database must be valid according to all defined rules. 
 - Isolation ensures that concurrent execution of transactions leaves the database in the same state that would have been obtained if the transactions were executed sequentially
 - Durability guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure.
 
-5. InnoDB implements **shared** lock and **exclusive** lock.
+> note: mysql commit every sql by default in the current session, to disable this, **set autocommit=0**
+```
+# start a transaction
+start transaction;
+...
+commit;
+
+# roll back a transaction to undo all the uncommitted change
+rollback;
+
+# create a save point
+savepoint point1;
+
+# release a save point
+release savepoint point1;
+
+# roll back to point1
+rollback to point1
+```
+6. isolation level:
+- read uncommitted(dirty read): changes in a transaction is available even not committed
+- read committed: any result from read is committed
+- repeatable read: default isolation level for innodb, **consistent reads** within the same transaction read the snapshot elastablished by the first read.
+- serializable: transaction commit serializably
+
+> note: consistent reads, two transactions select from mysql begin with transaction, following operations are based on the snapshot of first select of each transaction.
+
+- dirty read: read uncommited data
+- phantom read: every time read results are not the same
+
+7. InnoDB implements **shared** lock and **exclusive** lock.
 - Transaction T1 holds a shared lock of row r, requests from T2 for lock on r will be granted immediately, both T1 and T2 hold the lock. requests from T2 for exclusive lock will not be granted immediately.
 - Transaction T1 holds a exclusive lock on row r, any requests for share lock and exclusive lock would wait for release of lock from T1
 ```
@@ -57,7 +99,7 @@ SELECT table_id, name, space from INFORMATION_SCHEMA.INNODB_SYS_TABLES WHERE nam
 lock table my_table_name read;
 lock table my_table_name write;
 ```
-6. **Intention** locks are table-level locks that used to solve conflict of row lock and table lock.
+8. **Intention** locks are table-level locks that used to solve conflict of row lock and table lock.
 - T1 get the shared lock of row r, means no other transactions are allowed to update row r.
 - T2 get the exclusive lock of table t which contains r. Thus causing conflict.
 
@@ -66,8 +108,6 @@ note:
 - intention locks are table level, but won't lock table, instead indicating transaction holding row level lock.
 - when first get row lock, need first get intention lock.
 
-7. isolation levels
-- repeatable read: 
 
 
 
