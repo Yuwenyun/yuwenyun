@@ -4,6 +4,9 @@ mysqladmin --version
 # launch mysql
 mysqld --console
 
+# shut down mysql
+mysqladmin shutdown
+
 # connect to mysql server
 mysql -u root -p
 
