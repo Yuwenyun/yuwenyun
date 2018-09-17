@@ -36,3 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 ```
+
+3. spring security is based on spring aop and servlet's interceptors, it's a bunch of filters/interceptors
+to handle url requests, two primary interceptors
+- AuthenticationProcessingFilter: using AuthenticationManager's **ProviderManager** to get user's info, user's info
+will be wrapped and saved in spring's global SecurityContextHolder 
+- AbstractSecurityInterceptor: call AccessDecisionManager to get user info from SecurityContextHolder
+and decide whether url request has enough privilege

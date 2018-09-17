@@ -17,6 +17,8 @@
         <module>hadoop</module>
         <module>spring-mvc</module>
         <module>java-basic</module>
+        <module>spring-boot</module>
+        <module>spring-security</module>
     </modules>
 
     <dependencyManagement>
