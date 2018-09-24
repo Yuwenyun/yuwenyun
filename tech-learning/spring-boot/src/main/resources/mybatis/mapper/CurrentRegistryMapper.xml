@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.owen.mapper.CurrentRegistryMapper">
+  <resultMap id="BaseResultMap" type="com.owen.model.CurrentRegistry">
+    <result column="emp_no" jdbcType="INTEGER" property="empNo" />
+    <result column="dept_no" jdbcType="CHAR" property="deptNo" />
+    <result column="from_date" jdbcType="DATE" property="fromDate" />
+    <result column="to_date" jdbcType="DATE" property="toDate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.owen.model.CurrentRegistry">
+    insert into current_dept_emp (emp_no, dept_no, from_date, 
+      to_date)
+    values (#{empNo,jdbcType=INTEGER}, #{deptNo,jdbcType=CHAR}, #{fromDate,jdbcType=DATE}, 
+      #{toDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.owen.model.CurrentRegistry">
+    insert into current_dept_emp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empNo != null">
+        emp_no,
+      </if>
+      <if test="deptNo != null">
+        dept_no,
+      </if>
+      <if test="fromDate != null">
+        from_date,
+      </if>
+      <if test="toDate != null">
+        to_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empNo != null">
+        #{empNo,jdbcType=INTEGER},
+      </if>
+      <if test="deptNo != null">
+        #{deptNo,jdbcType=CHAR},
+      </if>
+      <if test="fromDate != null">
+        #{fromDate,jdbcType=DATE},
+      </if>
+      <if test="toDate != null">
+        #{toDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+</mapper>
