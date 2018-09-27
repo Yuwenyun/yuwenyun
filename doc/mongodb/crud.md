@@ -1,4 +1,4 @@
-```aidl
+```
 # insert a doc
 > db.foo.insert({"bar":"baz"})
 

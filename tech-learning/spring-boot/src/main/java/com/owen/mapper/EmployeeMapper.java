@@ -2,6 +2,9 @@ package com.owen.mapper;
 
 import com.owen.model.Employee;
 
+import java.util.List;
+import java.util.Map;
+
 public interface EmployeeMapper {
     int deleteByPrimaryKey(Integer empNo);
 
@@ -14,4 +17,6 @@ public interface EmployeeMapper {
     int updateByPrimaryKeySelective(Employee record);
 
     int updateByPrimaryKey(Employee record);
+
+    List<Employee> queryEmployeeByPage(Map<String, Object> map);
 }
