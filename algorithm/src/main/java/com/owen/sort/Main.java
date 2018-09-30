@@ -7,7 +7,8 @@ public class Main
     public static void main(String[] args)
     {
         int[] array = new int[]{3, 9, 4, 1, 2, 5, 8, 6, 7, 0};
-        Arrays.stream(heap(array)).forEach(System.out::println);
+        quick(array);
+        Arrays.stream(array).forEach(System.out::println);
     }
 
     /**
@@ -131,5 +132,27 @@ public class Main
             array[size - 1] = temp;
         }
         return array;
+    }
+
+    public static void quick(int[] array)
+    {
+        int size = array.length;
+        quick(array, 0, size - 1);
+    }
+
+    private static void quick(int[] array, int left, int right)
+    {
+        int i = left, j = right, temp = array[left];
+        if(left >= right){ return; }
+        while(i != j){
+            while(i < j && array[j] >= temp){ j--; }
+            if(j > i){ array[i] = array[j]; }
+
+            while(i < j && array[i] <= temp){ i++; }
+            if(i < j){ array[j] = array[i]; }
+        }
+        array[i] = temp;
+        quick(array, left, i - 1);
+        quick(array, j + 1, right);
     }
 }

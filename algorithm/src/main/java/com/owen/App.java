@@ -12,23 +12,44 @@ import com.owen.utils.format.TreeGenerator;
  */
 public class App 
 {
+    private static String input = "";
+
     public static void main( String[] args )
     {
-        Node<Integer> root = new ConstructTreeAccordingToPreAndInOrder().constructTree(
-                new Integer[]{1, 2, 4, 7, 3, 5, 6, 8},
-                new Integer[]{4, 7, 2, 1, 5, 3, 8, 6}
-        );
-        TreeGenerator.printTree(root);
+        System.out.println(foo("0"));
+        System.out.println(foo("1"));
+        System.out.println(input);
+        System.out.println(test());
+    }
 
-        ImplementStackWithTwoQueues<Integer> app = new ImplementStackWithTwoQueues<>();
-        app.push(1);
-        app.push(2);
-        app.push(4);
-        System.out.println(app.pop());
-        app.push(7);
-        app.push(3);
-        System.out.println(app.pop());
-        System.out.println(app.pop());
-        System.out.println(app.pop());
+    private static String foo(String s)
+    {
+        try
+        {
+            if(s.equals("1")){
+                throw new Exception();
+            }
+        }
+        catch (Exception e){
+            input += "2";
+            return input;
+        }
+        finally
+        {
+            input += "3";
+        }
+        input += "4";
+        return input;
+    }
+
+    private static boolean test()
+    {
+        try{
+            return true;
+        }
+        finally
+        {
+            return false;
+        }
     }
 }
