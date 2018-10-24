@@ -13,6 +13,28 @@ public class TreeGenerator
     private final static String forwardSlash = "/";
     private final static String backwardSlash = "\\";
 
+    public static Node<Integer> getSampleTree()
+    {
+        Node<Integer> root = new Node<>(3);
+        Node<Integer> node1 = new Node<>(1);
+        Node<Integer> node2 = new Node<>(9);
+        Node<Integer> node3 = new Node<>(6);
+        Node<Integer> node4 = new Node<>(8);
+        Node<Integer> node5 = new Node<>(2);
+        Node<Integer> node6 = new Node<>(5);
+        Node<Integer> node7 = new Node<>(4);
+        Node<Integer> node8 = new Node<>(0);
+        Node<Integer> node9 = new Node<>(7);
+        root.setLeft(node1); root.setRight(node2);
+        node1.setLeft(node3); node1.setRight(node4);
+        node2.setLeft(node5); node2.setRight(node6);
+        node3.setLeft(node7);
+        node4.setLeft(node8); node4.setRight(node9);
+
+        printTree(root);
+        return root;
+    }
+
     public static Node<Integer> getDuplicateEleTree()
     {
         Node<Integer> root = new Node<>(3);
