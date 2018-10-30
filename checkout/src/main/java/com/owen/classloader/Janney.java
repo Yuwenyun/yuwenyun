@@ -6,6 +6,10 @@ public class Janney
         System.out.println("class Janney");
     }
 
+    public Janney(String hello){
+        System.out.println(hello + " Janney");
+    }
+
     {
         System.out.println("Janney");
     }
