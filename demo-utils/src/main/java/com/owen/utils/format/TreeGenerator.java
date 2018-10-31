@@ -2,10 +2,7 @@ package com.owen.utils.format;
 
 import com.owen.models.algorithm.Node;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class TreeGenerator
 {
